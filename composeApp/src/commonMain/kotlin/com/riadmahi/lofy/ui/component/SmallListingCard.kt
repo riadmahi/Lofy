@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -16,6 +17,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -31,21 +33,23 @@ fun SmallListingCard(item: Listing, onClick: (Listing) -> Unit) {
             .background(MaterialTheme.colorScheme.surface)
             .clickable { onClick(item) }
     ) {
-        AsyncImage(
-            model = item.imageUrl,
-            modifier = Modifier.fillMaxWidth().height(150.dp),
-            contentDescription = null,
-            contentScale = ContentScale.Crop
-        )
-        Box(Modifier.padding(12.dp)) {
-            Column {
-                Text(item.title, style = MaterialTheme.typography.titleMedium, maxLines = 1, color = MaterialTheme.colorScheme.onSurface)
-                Text("${item.city}, ${item.state}", color = Color(0xFF8D8D8D))
-            }
+        Box(
+            modifier = Modifier.fillMaxWidth().height(150.dp)
+        ) {
+            AsyncImage(
+                model = item.imageUrl,
+                modifier = Modifier.fillMaxSize(),
+                contentDescription = null,
+                contentScale = ContentScale.Crop
+            )
             Surface(
-                modifier = Modifier.align(Alignment.TopEnd),
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(8.dp)
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(Color(0xFF2B2B2B).copy(alpha = 0.6f)),
                 shape = RoundedCornerShape(12.dp),
-                color = Color(0xFF2B2B2B)
+                color = Color.Transparent,
             ) {
                 Text(
                     "★ ${item.rating}",
@@ -54,11 +58,26 @@ fun SmallListingCard(item: Listing, onClick: (Listing) -> Unit) {
                 )
             }
         }
+        Column(
+            modifier = Modifier.padding(12.dp)
+        ) {
+            Text(
+                item.title,
+                style = MaterialTheme.typography.titleMedium,
+                maxLines = 1,
+                color = MaterialTheme.colorScheme.onSurface
+            )
+            Text("${item.city}, ${item.state}", color = Color(0xFF8D8D8D))
+        }
         Row(
             Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text("$${item.pricePerMonth}", style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.onSurface,)
+            Text(
+                "$${item.pricePerMonth}",
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.onSurface,
+            )
             Text(" / month", color = Color(0xFF8D8D8D), modifier = Modifier.padding(start = 4.dp))
         }
     }
