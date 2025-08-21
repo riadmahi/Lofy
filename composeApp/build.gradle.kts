@@ -48,6 +48,7 @@ kotlin {
             implementation(libs.coil.network.ktor2)
             implementation(libs.coil.network.ktor3)
             implementation(libs.coil.mp)
+            implementation(libs.androidx.navigation)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
