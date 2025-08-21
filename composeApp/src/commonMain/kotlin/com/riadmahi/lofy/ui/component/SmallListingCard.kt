@@ -18,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.riadmahi.lofy.model.Listing
@@ -33,7 +34,8 @@ fun SmallListingCard(item: Listing, onClick: (Listing) -> Unit) {
         AsyncImage(
             model = item.imageUrl,
             modifier = Modifier.fillMaxWidth().height(150.dp),
-            contentDescription = null
+            contentDescription = null,
+            contentScale = ContentScale.Crop
         )
         Box(Modifier.padding(12.dp)) {
             Column {

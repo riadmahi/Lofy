@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.riadmahi.lofy.model.Listing
@@ -29,7 +30,8 @@ fun LargeListingCard(item: Listing, onClick: (Listing) -> Unit) {
         AsyncImage(
             model = item.imageUrl,
             modifier = Modifier.fillMaxWidth().height(180.dp),
-            contentDescription = null
+            contentDescription = null,
+            contentScale = ContentScale.Crop
         )
         Column(Modifier.padding(14.dp)) {
             Text(item.title, color = MaterialTheme.colorScheme.onSurface, style = MaterialTheme.typography.titleMedium)
